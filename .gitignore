@@ -1,0 +1,12 @@
+# Ignore virtual environment folder
+Mustard/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+
+# Ignore VSCode settings (optional)
+.vscode/
+
+# Ignore environment variables files (if any)
+.env
