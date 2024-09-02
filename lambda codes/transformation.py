@@ -66,10 +66,10 @@ def lambda_handler(event, context):
     loc_df = loc_df.drop('residents', axis=1)
 
     # Save final DataFrames to S3
-    s3_ops.write_data_to_s3(char_df, bucket, 'Rick&Morty/Transformed/Character.csv')
-    s3_ops.write_data_to_s3(ep_df, bucket, 'Rick&Morty/Transformed/Episode.csv')
-    s3_ops.write_data_to_s3(expanded_df, bucket, 'Rick&Morty/Transformed/Appearance.csv')
-    s3_ops.write_data_to_s3(loc_df, bucket, 'Rick&Morty/Transformed/Location.csv')
+    s3_ops.write_data_to_s3(char_df, bucket, 'Rick&Morty/Transformed/characters.csv')
+    s3_ops.write_data_to_s3(ep_df, bucket, 'Rick&Morty/Transformed/episodes.csv')
+    s3_ops.write_data_to_s3(expanded_df, bucket, 'Rick&Morty/Transformed/appearances.csv')
+    s3_ops.write_data_to_s3(loc_df, bucket, 'Rick&Morty/Transformed/locations.csv')
 
     return {
         'statusCode': 200,
