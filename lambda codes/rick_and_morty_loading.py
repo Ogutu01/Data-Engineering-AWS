@@ -3,22 +3,22 @@ import pandas as pd
 import pymysql.cursors
 import s3_file_operations as s3_ops
 
-rds_host = "rick-and-morty-****************8.eu-west-1.rds.amazonaws.com" # Replace with your RDS hostname
+rds_host = "database-1.ct0yog8ymd5e.eu-west-1.rds.amazonaws.com" # Replace with your RDS hostname
 rds_username = "admin"
-rds_user_pwd = "******"  # Replace with your password
-rds_db_name = "rick_and_morty"
-bucket_name = "de-masterclass"   # Replace with your s3 Bucket name
+rds_user_pwd = "joyvic8085."  # Replace with your password
+rds_db_name = "rick-and-morty-db"
+bucket_name = "de-masterclass-ogutu"   # Replace with your s3 Bucket name
 
 def lambda_handler(event, context):
     # Read transformed data from S3
     print("Reading transformed data from S3...")
-    characters_df = s3_ops.read_csv_from_s3(bucket_name, 'Rick&Morty/Transformed/Character.csv')
-    episodes_df = s3_ops.read_csv_from_s3(bucket_name, 'Rick&Morty/Transformed/Episode.csv')
-    appearance_df = s3_ops.read_csv_from_s3(bucket_name, 'Rick&Morty/Transformed/Appearance.csv')
-    location_df = s3_ops.read_csv_from_s3(bucket_name, 'Rick&Morty/Transformed/Location.csv')
+    char_df = s3_ops.read_csv_from_s3(bucket_name, 'Rick&Morty/Transformed/characters.csv')
+    ep_df = s3_ops.read_csv_from_s3(bucket_name, 'Rick&Morty/Transformed/episodes.csv')
+    app_df = s3_ops.read_csv_from_s3(bucket_name, 'Rick&Morty/Transformed/appearances.csv')
+    loc_df = s3_ops.read_csv_from_s3(bucket_name, 'Rick&Morty/Transformed/locations.csv')
 
     # Check if data is loaded successfully
-    if characters_df is None or episodes_df is None or appearance_df is None or location_df is None:
+    if char_df is None or ep_df is None or app_df is None or loc_df is None:
         print("Error in loading data from S3")
         return {
             'statusCode': 500,
@@ -90,16 +90,16 @@ def lambda_handler(event, context):
         cursor.execute(create_location_table)
 
         # Insert data into Character_Table
-        insert_data(cursor, conn, characters_df, "Character_Table")
+        insert_data(cursor, conn, char_df, "Character_Table")
 
         # Insert data into Episode_Table
-        insert_data(cursor, conn, episodes_df, "Episode_Table")
+        insert_data(cursor, conn, ep_df, "Episode_Table")
 
         # Insert data into Appearance_Table
-        insert_data(cursor, conn, appearance_df, "Appearance_Table")
+        insert_data(cursor, conn, app_df, "Appearance_Table")
 
         # Insert data into Location_Table
-        insert_data(cursor, conn, location_df, "Location_Table")
+        insert_data(cursor, conn, loc_df, "Location_Table")
 
         print("Data insertion completed successfully")
 
