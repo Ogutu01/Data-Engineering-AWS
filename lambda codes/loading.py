@@ -16,7 +16,7 @@ def lambda_handler(event, context):
     ep_df = s3_ops.read_csv_from_s3(bucket_name, 'Rick&Morty/Transformed/episodes.csv')
     app_df = s3_ops.read_csv_from_s3(bucket_name, 'Rick&Morty/Transformed/appearances.csv')
     loc_df = s3_ops.read_csv_from_s3(bucket_name, 'Rick&Morty/Transformed/locations.csv')
-
+ 
     # Check if data is loaded successfully
     if char_df is None or ep_df is None or app_df is None or loc_df is None:
         print("Error in loading data from S3")
